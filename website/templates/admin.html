@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Admin</title>
+    <script type="module" src="register.js" defer></script>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="#"> <img src="{{ url_for('static', filename='LPU_banner.png') }}" alt="Logo"> </a> 
+        </a> 
+      </div>
+      <!-- Hamburger Menu for Mobile -->
+      <div class="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="main">
+            <li><a href="#"><i class="fa fa-dashboard"></i><span> Dashboard</span></a></li>
+            <li><a href="#"><i class="fas fa-user"></i><span>User Management</span></a></li>
+            <li><a href="#"><i class="fas fa-trophy"></i><span>Leaderboards</span></a></li>
+            <li><a href="#"><i class="fas fa-chart-bar"></i><span>Reports</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i><span>Settings</span></a></li>
+        </ul>    
+        <div class="logout">
+            <a href="#"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+        </div>
+    </div>
+
+    <!-- SideBar -->
+    <div class="sidebar">
+        <ul class="main">
+            <li><a href="#" data-target="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#" data-target="user-management"><i class="fas fa-user"></i> User Management</a></li>
+            <li><a href="#" data-target="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+            <li><a href="#" data-target="reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
+            <li><a href="#" data-target="settings"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>    
+        <div class="logout">
+            <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+    
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Dashboard -->
+        <div id="dashboard" class="content-section active">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-label">Total Bottles Recycled</div>
+                    <div class="stat-number" id="total-bottles">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Sessions Played</div>
+                    <div class="stat-number" id="sessions-played">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Registered Users</div>
+                    <div class="stat-number" id="registered-users">0</div> <!-- ✅ This will update dynamically -->
+                </div>
+            </div>
+        </div>
+        <!-- User Management -->
+        <div id="user-management" class="content-section">
+            <div class="user-header">
+                <h1>User Management</h1> 
+            </div>   
+            <button id="add-user-btn">Add User</button>
+            <!-- User Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student number</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-table-body">
+                    <!-- Users will be dynamically added here -->
+                </tbody>
+            </table>
+        
+            <!-- User Form (Hidden by Default) -->
+            <div id="user-form-container" class="modal">
+                <div class="modal-content">
+                    <h2 id="form-title">Add User</h2>
+                    <form id="user-form">
+                        <input type="hidden" id="user-id">
+                        <input type="text" id="user-name" placeholder="Name" required>
+                        <input type="text" id="studentnumber" placeholder="StudentNumber" required>
+                        <input type="email" id="user-email" placeholder="Email" required>
+                        <input type="password" id="user-password" placeholder="Password" required>
+                        <select id="user-role">
+                            <option value="admin">admin</option>
+                            <option value="user">user</option>
+                        </select>
+                        <button type="submit">Save</button>
+                        <button type="button" id="cancel-btn">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="leaderboard" class="content-section">
+            <h1>Leaderboard</h1>
+            <p>See the top contributors.</p>
+        </div>
+        <div id="reports" class="content-section">
+            <h1>Reports</h1>
+            <p>View system reports.</p>
+        </div>
+        <div id="settings" class="content-section">
+            <h1>Settings</h1>
+            <p>Adjust system settings here.</p>
+        </div>
+    </div>
+
+
+    <!-- JavaScript for Sidebar Toggle -->
+    <script src="sidebar_toggle.js"> </script>
+    <!--JavaScript for Sidebar Buttons-->
+    <script src="sidebar.js"> </script>
+    <!--JavaScript for Logout Button-->
+    <script src="logout.js"> </script>
+    <!--JavaScript for User Management-->
+    <script type="module" src="usermanagement.js"></script>
+  </body>
+</html>
