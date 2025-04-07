@@ -3,7 +3,7 @@
 
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  import { getFirestore,doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  import { getFirestore,doc, setDoc,addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
   // TODO: Add SDKs for Firebase products that you want to use
@@ -46,6 +46,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const studentNumber = document.getElementById("studentnumber").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("password").value;
+
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
 
         if (!email || !password || !name || !studentNumber) {
             alert("All fields are required!");
@@ -63,15 +70,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 name: name,
                 studentNumber: studentNumber,
                 email: email,
-                uid: user.uid,
                 createdAt: new Date(),
                 role:"user",
-                points: 0,
-                password: password
+                completedSessions: 0,
+                totalPoints: 0,
             });
 
             alert("✅ Signup successful!");
-            window.location.href = "/index"; // Redirect after signup
+            window.location.href = "/"; // Redirect after signup
         } catch (error) {
             alert("⚠️ Error: " + error.message);
             console.error("Signup Error:", error);

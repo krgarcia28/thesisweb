@@ -247,22 +247,6 @@ body{
         z-index: 5;
     }
 }
-
-.social-icons{
-    margin: 20px 0;
-}
-
-.social-icons a{
-    border: 1px solid #ccc;
-    border-radius: 20%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 3px;
-    width: 40px;
-    height: 40px;
-}
-
 .toggle-container{
     position: absolute;
     top: 0;
@@ -553,10 +537,13 @@ th, td {
     text-align: left;
 }
 
+
+
 th {
     background-color: #AE1C28;
     color: white;
 }
+
 
 /* Buttons */
 button {
@@ -604,4 +591,105 @@ button {
     color: white;
     padding: 20px;
     
+}
+
+
+#leaderboard h1 {
+    text-align: center;
+    color: black;
+}
+
+#leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#leaderboard thead {
+    background-color: #b71c1c; /* Red Header */
+    color: white;
+}
+
+#leaderboard th, #leaderboard td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+#leaderboard tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#leaderboard tbody tr:hover {
+    background-color: #f7c8c8;
+}
+
+
+#leaderboard th:nth-child(1),
+#leaderboard td:nth-child(1) {
+    width: 15%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+#leaderboard th:nth-child(2),
+#leaderboard td:nth-child(2) {
+    width: 35%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+#leaderboard th:nth-child(3),
+#leaderboard td:nth-child(3) {
+    width: 25%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+#leaderboard th:nth-child(4),
+#leaderboard td:nth-child(4) {
+    width: 25%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+
+
+#system-logs h1 {
+    text-align: center;
+    color: black;
+}
+
+
+#system-logs th:nth-child(1),
+#system-logs td:nth-child(1) {
+    width: 20%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+#system-logs th:nth-child(2),
+#system-logs td:nth-child(2) {
+    width: 25%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+#system-logs th:nth-child(3),
+#system-logs td:nth-child(3) {
+    width: 25%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+
+#system-logs th:nth-child(4),
+#system-logs td:nth-child(4) {
+    width: 30%; /* Adjust width as needed */ 
+    font-weight: bold; /* Make Rank text bold */
+    text-align: center;
+}
+
+
+#user-leaderboard-body tr.highlighted-row {
+    background-color: #fff4e6;
+    font-weight: bold;
+    border-left: 4px solid #ff9800;
 }

@@ -1,0 +1,98 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        
+        
+        <div class="header-container">
+            <h1 class="leaderboard-title">Leaderboard</h1>
+              
+        </div>
+        
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th class="rank-col">RANK</th>
+                    <th class="name-col">NAME</th>
+                    <th class="numeric-col">DEPARTMENT</th>
+                    <th class="numeric-col">COMPLETED SESSIONS</th>
+                    <th class="progress-col">POINTS</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                {% for user in users %}
+                <tr>
+                    <td class="rank-cell">
+                        {% if user.rank <= 3 %}
+                            {% if user.rank == 1 %}
+                                <span class="medal gold">🥇</span>
+                            {% elif user.rank == 2 %}
+                                <span class="medal silver">🥈</span>
+                            {% elif user.rank == 3 %}
+                                <span class="medal bronze">🥉</span>
+                            {% endif %}
+                        {% else %}
+                            {{ user.rank }}
+                        {% endif %}
+                    </td>
+                    <td class="name-cell">
+                        <div class="user-info">
+                            {% if user.image %}
+                                <img src="{{ url_for('static', filename='images/' + user.image) }}" alt="{{ user.name }}" class="user-avatar">
+                            {% else %}
+                                <div class="user-initials">{{ user.initials }}</div>
+                            {% endif %}
+                            <span class="user-name">{{ user.name }}</span>
+                        </div>
+                    </td>
+                    <td class="numeric-cell">{{ user.closedIssues }}</td>
+                    <td class="numeric-cell">{{ user.completedProjects }}</td>
+                    <td class="progress-cell">
+                        <div class="progress-chart" data-progress="{{ user.progress }}">
+                            <svg width="100" height="30" viewBox="0 0 100 30">
+                                {% if user.progress == "up" %}
+                                    <path d="M0,20 Q25,5 50,15 T100,10" fill="none" stroke="#4080ff" stroke-width="2" />
+                                {% elif user.progress == "down" %}
+                                    <path d="M0,10 Q25,25 50,15 T100,20" fill="none" stroke="#4080ff" stroke-width="2" />
+                                {% else %}
+                                    <path d="M0,15 Q25,10 50,20 T100,15" fill="none" stroke="#4080ff" stroke-width="2" />
+                                {% endif %}
+                            </svg>
+                        </div>
+                    </td>
+                    <td class="efficiency-cell">
+                        <span class="efficiency-value {% if user.efficiencyTrend == 'up' %}positive{% else %}negative{% endif %}">
+                            {% if user.efficiencyTrend == "up" %}↑{% else %}↓{% endif %} {{ user.efficiencyRate }}%
+                        </span>
+                    </td>
+                    <td class="numeric-cell">{{ user.hours }}</td>
+                    <td class="score-cell">
+                        <span class="score-value">{{ user.avgScore }}</span>
+                        <span class="star">⭐</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="customize-btn-container">
+            <button class="customize-btn">
+                <span class="customize-icon">⚙️</span>
+                Customize
+            </button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+
+</html>
+

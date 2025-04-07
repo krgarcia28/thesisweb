@@ -1,6 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, session
 
 # Initialize Firebase
 if not firebase_admin._apps:
@@ -68,7 +68,7 @@ def signup():
 
     try:
         # Check if email is already registered
-        user_query = db.collection("users").where("email", "==", email).stream()
+        user_query = db.collection("user").where("email", "==", email).stream()
         if any(user_query):
             return jsonify({"message": "Email already registered"}), 400
 
@@ -76,7 +76,7 @@ def signup():
         user = auth.create_user(email=email, password=password, display_name=name)
 
         # Store additional user info in Firestore
-        db.collection("users").document(user.uid).set({
+        db.collection("user").document(user.uid).set({
             "name": name,
             "student_number": student_number,
             "email": email,
@@ -92,6 +92,14 @@ def signup():
         return jsonify({"message": str(e)}), 400
 
 
+
+@main.route('/logout')
+def logout():
+    session.clear()
+    return render_template('index.html')
+
+
+
 @main.route('/users')
 def users():
     return render_template('user.html')
@@ -99,6 +107,27 @@ def users():
 @main.route('/admin')
 def admin():
     return render_template('admin.html')
+
+@main.route('/usermanagement.html')
+def user_management():
+    return render_template('usermanagement.html')
+
+@main.route('/adduser', methods=['POST'])
+def add_user_by_admin(email, password, name, role,studentNumber):
+    user = auth.create_user(email=email, password=password)
+    user_data = {
+        "name": name,
+            "student_number": studentNumber,
+            "email": email,
+            "uid": user.uid,
+            "createdAt": firestore.SERVER_TIMESTAMP,
+            "role": role,  # Assign role
+            "points": 0
+    }
+    db.collection("users").document(user.uid).set(user_data)
+    return user
+
+
 
 
 

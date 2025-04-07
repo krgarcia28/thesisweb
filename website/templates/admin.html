@@ -9,7 +9,6 @@
     />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Admin</title>
-    <script type="module" src="register.js" defer></script>
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -24,19 +23,6 @@
       </div>
     </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <ul class="main">
-            <li><a href="#"><i class="fa fa-dashboard"></i><span> Dashboard</span></a></li>
-            <li><a href="#"><i class="fas fa-user"></i><span>User Management</span></a></li>
-            <li><a href="#"><i class="fas fa-trophy"></i><span>Leaderboards</span></a></li>
-            <li><a href="#"><i class="fas fa-chart-bar"></i><span>Reports</span></a></li>
-            <li><a href="#"><i class="fas fa-cog"></i><span>Settings</span></a></li>
-        </ul>    
-        <div class="logout">
-            <a href="#"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
-        </div>
-    </div>
 
     <!-- SideBar -->
     <div class="sidebar">
@@ -44,16 +30,17 @@
             <li><a href="#" data-target="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li><a href="#" data-target="user-management"><i class="fas fa-user"></i> User Management</a></li>
             <li><a href="#" data-target="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
-            <li><a href="#" data-target="reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
-            <li><a href="#" data-target="settings"><i class="fas fa-cog"></i> Settings</a></li>
+            <li><a href="#" data-target="system-logs"><i class="fas fa-chart-bar"></i> System Logs</a></li>
         </ul>    
         <div class="logout">
-            <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <script  type="module" src= "{{ url_for('static', filename='logout.js') }}"> </script>
         </div>
     </div>
     
     <!-- Main Content Area -->
     <div class="main-content">
+        {% block content %}
         <!-- Dashboard -->
         <div id="dashboard" class="content-section active">
             <div class="stats-container">
@@ -100,7 +87,7 @@
                     <form id="user-form">
                         <input type="hidden" id="user-id">
                         <input type="text" id="user-name" placeholder="Name" required>
-                        <input type="text" id="studentnumber" placeholder="StudentNumber" required>
+                        <input type="number" id="student-number" placeholder="StudentNumber" required>
                         <input type="email" id="user-email" placeholder="Email" required>
                         <input type="password" id="user-password" placeholder="Password" required>
                         <select id="user-role">
@@ -113,28 +100,55 @@
                 </div>
             </div>
         </div>
+    
         <div id="leaderboard" class="content-section">
-            <h1>Leaderboard</h1>
-            <p>See the top contributors.</p>
+            <h1>Gamified Segregation Top Contributors</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Completed Sessions</th>
+                        <th>Total Points</th>
+                    </tr>
+                </thead>
+                <tbody id="user-leaderboard-body">
+                    <!-- Users will be dynamically added here -->
+                </tbody>
+            </table>
         </div>
-        <div id="reports" class="content-section">
-            <h1>Reports</h1>
-            <p>View system reports.</p>
+        
+        <script type="module" src="{{ url_for('static', filename='leaderboard.js') }}"></script>
+
+        <div id="system-logs" class="content-section">
+            <h1>System Logs</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="system-logs-body">
+                    <!-- Logs will be dynamically inserted here -->
+                </tbody>
+            </table>
         </div>
-        <div id="settings" class="content-section">
-            <h1>Settings</h1>
-            <p>Adjust system settings here.</p>
-        </div>
+
+        <script type="module" src="{{ url_for('static', filename='systemlogs.js') }}"></script>
+
+        {% endblock %}
     </div>
 
 
-    <!-- JavaScript for Sidebar Toggle -->
-    <script src="sidebar_toggle.js"> </script>
     <!--JavaScript for Sidebar Buttons-->
-    <script src="sidebar.js"> </script>
-    <!--JavaScript for Logout Button-->
-    <script src="logout.js"> </script>
+    <script src= "{{ url_for('static', filename='sidebar.js') }}"> </script>
     <!--JavaScript for User Management-->
-    <script type="module" src="usermanagement.js"></script>
+    <script type="module" src="{{ url_for('static', filename='usermanagement.js') }}"></script>
+    
+    
+
   </body>
 </html>
