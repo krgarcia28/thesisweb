@@ -88,9 +88,9 @@ window.deleteUser = async function (userId) {
 
 // ✅ Open Add User Form
 addUserBtn.addEventListener("click", () => {
-    document.getElementById("user-id").value = ""; // Reset ID
+    document.getElementById("user-id").value = ""; 
     userForm.reset();
-    formTitle.innerText = "Add User"; // Change title
+    formTitle.innerText = "Add User"; 
     userFormContainer.classList.add("active");
 });
 

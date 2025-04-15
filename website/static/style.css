@@ -361,6 +361,12 @@ button#continue-button:hover {
     border: 2px solid  black;
 }
 
+.sidebar-admin .image-logo img{
+    width: 40px;
+    border-radius: 6px;
+
+}
+
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -384,15 +390,6 @@ button#continue-button:hover {
     border-radius: 5px;
 }
 
-.sidebar.collapsed {
-    width: 60px; /* Shrinks sidebar */
-}
-
-/* ✅ Hide Text When Sidebar is Collapsed */
-.sidebar.collapsed ul li a span,
-.sidebar.collapsed .logout span {
-    display: none; /* Hide text */
-}
 
 .logout a {
     color: white;
@@ -693,3 +690,54 @@ button {
     font-weight: bold;
     border-left: 4px solid #ff9800;
 }
+
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-left: 50px;
+  }
+  
+  .profile-avatar img {
+    background-color: gray;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #d41f1f; /* LPU red accent */
+  }
+  
+  .profile-details {
+    font-size: 1.1rem;
+  }
+
+  .profile-details {
+    margin-bottom: 20px; /* Adds spacing to the whole profile section */
+}
+
+.profile-details h2 {
+    margin-bottom: 10px; /* Adds spacing below the name */
+}
+
+.profile-details p {
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-size: 22px; /* Adds spacing below each paragraph */
+}
+
+.profile-details span.profile-data {
+    margin-left: 50px;  /* Adjust the space as needed */
+}
+
+.profile-details p {
+    margin-left: 30px;
+; /* Adds space between each <p> */
+}
+
+.profile-details span {
+    margin-left: 10px; /* Adds space between <strong> and <span> */
+    font-weight: bold;
+
+}
+  

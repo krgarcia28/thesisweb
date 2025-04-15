@@ -1,6 +1,8 @@
 import firebase_admin
 from firebase_admin import credentials, auth, firestore
-from flask import Blueprint, render_template, request, jsonify, session
+from flask import Blueprint, render_template, request, jsonify, session, send_file
+import qrcode
+import io
 
 # Initialize Firebase
 if not firebase_admin._apps:
@@ -104,6 +106,34 @@ def logout():
 def users():
     return render_template('user.html')
 
+
+
+@main.route('/users')
+def user_dashboard():
+    email = session.get('email')  # Email from session after login
+
+    if not email:
+        return render_template('index.html')
+
+    try:
+        # Fetch user document by email
+        user_docs = db.collection("user").where("email", "==", email).stream()
+        user_data = None
+
+        for doc in user_docs:
+            user_data = doc.to_dict()
+            break
+
+        if not user_data:
+            return "User not found", 404
+
+        return render_template("user_dashboard.html", user=user_data)
+
+    except Exception as e:
+        return f"Error: {e}", 500
+
+
+
 @main.route('/admin')
 def admin():
     return render_template('admin.html')
@@ -126,6 +156,22 @@ def add_user_by_admin(email, password, name, role,studentNumber):
     }
     db.collection("users").document(user.uid).set(user_data)
     return user
+
+@main.route('/generate_qr')
+def generate_qr():
+    if 'user_id' not in session:
+        return "Please login first", 401
+    
+    user_id = session['user_id']  # Firebase UID or your user identifier
+    qr_data = f"https://your-domain.com/trigger_game/{user_id}"  # Raspberry Pi will handle this route
+    
+    # Create QR code
+    img = qrcode.make(qr_data)
+    buf = io.BytesIO()
+    img.save(buf, format='PNG')
+    buf.seek(0)
+
+    return send_file(buf, mimetype='image/png')
 
 
 

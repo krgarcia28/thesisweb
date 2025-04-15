@@ -1,5 +1,5 @@
 from website import create_app  # Import the create_app function
-from flask import Flask, render_template, url_for
+from flask import render_template
 
 app = create_app()  # Initialize Flask app
 
@@ -8,7 +8,8 @@ def home():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
 
     
 app.config['SECRET_KEY'] = 'forthesisproject'
